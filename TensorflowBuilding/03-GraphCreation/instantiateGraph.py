@@ -41,3 +41,5 @@ with tf.Session() as sess:
 print("outs = {}".format(outs))
 print(type(outs[0]))
 
+outlier_x = tf.constant(3.14)
+print(outlier_x)
