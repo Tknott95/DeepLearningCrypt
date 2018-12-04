@@ -21,3 +21,8 @@ twoTwoThree = _tf.constant(_np.array([
 ]))
 
 print('3D Numpy array input: {}'.format(twoTwoThree.get_shape()))
+
+sess2 = _tf.InteractiveSession()
+ex44 = _tf.linspace(0.0, 4.0, 7)
+print('The content of "c":\n {}\n'.format(ex44.eval()))
+sess2.close()
