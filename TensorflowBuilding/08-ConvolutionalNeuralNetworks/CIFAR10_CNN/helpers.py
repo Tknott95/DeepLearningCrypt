@@ -43,6 +43,5 @@ def display_stats(data_path, batch_id, sample_id):
     print('Label - Label Id: {} Name: {}'.format(sample_label, label_names[sample_label]))
 
 batch_id = 3
-sample_id = 7000
+sample_id = 1
 display_stats(DATA, batch_id, sample_id)
-# load_cfar10_batch(DATA, 1)
