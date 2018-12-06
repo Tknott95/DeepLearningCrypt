@@ -2,7 +2,8 @@ import pickle
 import numpy as np
 
 DATA = "./data/cifar-10-batches-py"
-
+batch_id = 3
+sample_id = 7000
 
 # loading label names inside dataset
 def load_label_names():
@@ -42,6 +43,30 @@ def display_stats(data_path, batch_id, sample_id):
     print('Image - Shape: {}'.format(sample_image.shape))
     print('Label - Label Id: {} Name: {}'.format(sample_label, label_names[sample_label]))
 
-batch_id = 3
-sample_id = 1
+def normalize(x):
+    """
+        argument
+            - x: input image data in numpy array [32, 32, 3]
+        return
+            - normalized x
+    """
+    min_val = np.min(x)
+    max_val = np.max(x)
+    x = (x-min_val) / (max_val-min_val)
+    return x
+
+def one_hot_encode(x):
+    """
+        argument
+            - x: a list of labels
+        return
+            - one hot encoding matrix (number of labels, number of class)
+    """
+    encoded = np.zeros((len(x), 10))
+
+    for idx, val in enumerate(x):
+        encoded[idx][val] = 1
+
+    return encoded
+
 display_stats(DATA, batch_id, sample_id)
