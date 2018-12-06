@@ -1,9 +1,23 @@
 import pickle
 import numpy as np
+from os.path import isfile, isdir
+import tensorflow as tf
+from urllib.request import urlretrieve
+from tqdm import tqdm
 
-DATA = "./data/cifar-10-batches-py"
+DATA = "../shared/data/cifar-10-batches-py"
+cifar_path = '../shared/data/cifar-10-batches-py/'
+# again 4 ze slash as I would rathe have two then be a hipster coder in this scenario bronario
 batch_id = 3
 sample_id = 7000
+
+class DownloadProgress(tqdm):
+    last_block = 0
+
+    def hook(self, block_num=1, block_size=1, total_size=None):
+        self.total = total_size
+        self.update((block_num - self.last_block) * block_size)
+        self.last_block = block_num
 
 def load_label_names():
     return ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
@@ -76,13 +90,13 @@ def _preprocess_and_save(normalize, one_hot_encode, features, labels, filename):
 
     pickle.dump((features, labels), open(filename, 'wb'))
 
-def preprocess_and_save_data(cifar10_dataset_folder_path, normalize, one_hot_encode):
+def preprocess_and_save_data(DATA, normalize, one_hot_encode):
     n_batches = 5
     valid_features = []
     valid_labels = []
 
     for batch_i in range(1, n_batches + 1):
-        features, labels = load_cfar10_batch(cifar10_dataset_folder_path, batch_i)
+        features, labels = load_cfar10_batch(DATA, batch_i)
 
         # find index to be the point as validation data in the whole dataset of the batch (10%)
         index_of_validation = int(len(features) * 0.1)
@@ -94,7 +108,7 @@ def preprocess_and_save_data(cifar10_dataset_folder_path, normalize, one_hot_enc
         # - each file for each batch
         _preprocess_and_save(normalize, one_hot_encode,
                              features[:-index_of_validation], labels[:-index_of_validation],
-                             'preprocess_batch_' + str(batch_i) + '.p')
+                             (DATA+'/preprocess_batch_' + str(batch_i) + '.p'))
 
         # unlike the training dataset, validation dataset will be added through all batch dataset
         # - take 10% of the whold dataset of the batch
@@ -107,10 +121,10 @@ def preprocess_and_save_data(cifar10_dataset_folder_path, normalize, one_hot_enc
     # preprocess the all stacked validation dataset
     _preprocess_and_save(normalize, one_hot_encode,
                          np.array(valid_features), np.array(valid_labels),
-                         'preprocess_validation.p')
+                         (DATA+'/preprocess_validation.p'))
 
     # load the test dataset
-    with open(cifar10_dataset_folder_path + '/test_batch', mode='rb') as file:
+    with open(DATA + '/test_batch', mode='rb') as file:
         batch = pickle.load(file, encoding='latin1')
 
     # preprocess the testing data
@@ -120,8 +134,22 @@ def preprocess_and_save_data(cifar10_dataset_folder_path, normalize, one_hot_enc
     # Preprocess and Save all testing data
     _preprocess_and_save(normalize, one_hot_encode,
                          np.array(test_features), np.array(test_labels),
-                         'preprocess_training.p')
+                         (DATA+'/preprocess_training.p'))
 
+
+preprocess_and_save_data(DATA, normalize, one_hot_encode)
 
 display_stats(DATA, batch_id, sample_id)
+# checkpoint hit homie quaHHHHNNNnnnn
 
+valid_features, valid_labels = pickle.load(open((DATA+'/preprocess_validation.p'), mode='rb'))
+
+
+# prepare zeh input for zeh model
+# Remove previous weights, bias, inputs, etc..
+tf.reset_default_graph()
+
+# Inputs
+x = tf.placeholder(tf.float32, shape=(None, 32, 32, 3), name='input_x')
+y =  tf.placeholder(tf.float32, shape=(None, 10), name='output_y')
+keep_prob = tf.placeholder(tf.float32, name='keep_prob')

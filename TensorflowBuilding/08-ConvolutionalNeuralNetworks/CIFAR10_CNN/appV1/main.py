@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 from network_layers import convolutional_layer, max_pool_2x2, full_layer
 
-DATA_PATH = "data/cifar-10-batches-py/"
+DATA = "../shared/data/cifar-10-batches-py/"
 BATCH_SIZE = 50
 STEPS = 500000
 
@@ -18,7 +18,7 @@ def one_hot(vec, vals=10):
 
 
 def unpickle(file):
-    with open(os.path.join(DATA_PATH, file), 'rb') as fo:
+    with open(os.path.join(DATA, file), 'rb') as fo:
         u = pickle._Unpickler(fo)
         u.encoding = 'latin1'
         dict = u.load()
