@@ -6,7 +6,7 @@ from network_layers import convolutional_layer, max_pool_2x2, full_layer
 
 # using 'Learning Tensorflow O'Reilly book to code this
 DATA_DIR = '/tmp/data'
-MINITBATCH_SIZE = 50
+MINIBATCH_SIZE = 50
 STEPS = 5000
 
 mnist = input_data.read_data_sets(DATA_DIR, one_hot=True)
@@ -32,9 +32,10 @@ y_conv = full_layer(fulll_drop, 10)
 cross_entropy = _tf.reduce_mean(_tf.nn.softmax_cross_entropy_with_logits(logits=y_conv, labels=y_))
 train_step = _tf.train.AdamOptimizer(1e-4).minimize(cross_entropy)
 correct_prediction = _tf.equal(_tf.argmax(y_conv, 1), _tf.argmax(y_, 1))
-accuracy = _tf.reduce_mean(_tf.cast(correct_predicton, _tf.float32))
 
-with _tf.Sesson as sess:
+accuracy = _tf.reduce_mean(_tf.cast(correct_prediction, _tf.float32))
+
+with _tf.Session() as sess:
     sess.run(_tf.global_variables_initializer())
     
     for i in range(STEPS):
@@ -48,6 +49,6 @@ with _tf.Sesson as sess:
 
     X = mnist.test.images.reshape(10, 1000, 784)
     Y = mnist.test.labels.reshape(10, 1000, 10)
-    test_accuracy = np.mean([sess.run(accuracy, feed_dict={x: X[i], y_: Y[i], keep_prob: 1.0}) for i in range(10)])
+    test_accuracy = _np.mean([sess.run(accuracy, feed_dict={x: X[i], y_: Y[i], keep_prob: 1.0}) for i in range(10)])
 
 print("test_accuracy: {}".format(test_accuracy))
