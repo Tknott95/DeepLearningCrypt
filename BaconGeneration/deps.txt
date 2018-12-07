@@ -1,1 +1,2 @@
 pip3 install unidecode
+https://colab.research.google.com/github/tensorflow/tensorflow/blob/master/tensorflow/contrib/eager/python/examples/generative_examples/text_generation.ipynb#scrollTo=EHDoRoc5PKWz

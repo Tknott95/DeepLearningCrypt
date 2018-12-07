@@ -10,6 +10,10 @@ cifar_path = '../shared/data/cifar-10-batches-py/'
 # again 4 ze slash as I would rathe have two then be a hipster coder in this scenario bronario
 batch_id = 3
 sample_id = 7000
+epochs = 10
+batch_size = 128
+keep_probability = 0.7
+learning_rate = 0.001
 
 class DownloadProgress(tqdm):
     last_block = 0
@@ -153,3 +157,40 @@ tf.reset_default_graph()
 x = tf.placeholder(tf.float32, shape=(None, 32, 32, 3), name='input_x')
 y =  tf.placeholder(tf.float32, shape=(None, 10), name='output_y')
 keep_prob = tf.placeholder(tf.float32, name='keep_prob')
+
+
+# COST OPTIMIZER
+logits = conv_net(x, keep_prob)
+
+# Loss and Optimizer
+cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=logits, labels=y))
+optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(cost)
+
+# Accuracy
+correct_pred = tf.equal(tf.argmax(logits, 1), tf.argmax(y, 1))
+accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32), name='accuracy')
+
+
+def train_neural_network(session, optimizer, keep_probability, feature_batch, label_batch):
+    session.run(optimizer, 
+                feed_dict={
+                    x: feature_batch,
+                    y: label_batch,
+                    keep_prob: keep_probability
+                })
+
+def print_stats(session, feature_batch, label_batch, cost, accuracy):
+    loss = sess.run(cost, 
+                    feed_dict={
+                        x: feature_batch,
+                        y: label_batch,
+                        keep_prob: 1.
+                    })
+    valid_acc = sess.run(accuracy, 
+                         feed_dict={
+                             x: valid_features,
+                             y: valid_labels,
+                             keep_prob: 1.
+                         })
+    
+    print('Loss: {:>10.4f} Validation Accuracy: {:.6f}'.format(loss, valid_acc))
