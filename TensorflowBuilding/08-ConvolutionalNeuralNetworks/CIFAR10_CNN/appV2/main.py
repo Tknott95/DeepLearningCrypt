@@ -4,6 +4,7 @@ from os.path import isfile, isdir
 import tensorflow as tf
 from urllib.request import urlretrieve
 from tqdm import tqdm
+from cnn import conv_net
 
 DATA = "../shared/data/cifar-10-batches-py"
 cifar_path = '../shared/data/cifar-10-batches-py/'

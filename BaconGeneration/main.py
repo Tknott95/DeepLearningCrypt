@@ -1,6 +1,6 @@
 # Import TensorFlow >= 1.10 and enable eager execution
 import tensorflow as tf
-
+from model import Model
 # Note: Once you enable eager execution, it cannot be disabled. 
 tf.enable_eager_execution()
 
@@ -59,3 +59,5 @@ print (np.array(target_text).shape)
 
 dataset = tf.data.Dataset.from_tensor_slices((input_text, target_text)).shuffle(BUFFER_SIZE)
 dataset = dataset.batch(BATCH_SIZE, drop_remainder=True)
+
+model = Model(vocab_size, embedding_dim, units, BATCH_SIZE)
