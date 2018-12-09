@@ -1,3 +1,4 @@
+import tensorflow as tf
 class Model(tf.keras.Model):
   def __init__(self, vocab_size, embedding_dim, units, batch_size):
     super(Model, self).__init__()
