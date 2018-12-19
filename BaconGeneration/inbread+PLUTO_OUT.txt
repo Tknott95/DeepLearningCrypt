@@ -1,0 +1,44 @@
+2018-12-09 05:39:20.776560: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1113] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 6482 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1070, pci bus id: 0000:01:00.0, compute capability: 6.1)
+Epoch 20 Batch 0 Loss 0.7347
+Epoch 20 Batch 100 Loss 0.8392
+Epoch 20 Loss 0.8609
+Time taken for 1 epoch 9.894440174102783 sec
+
+QUEEN:
+What is the matter, my lord?
+
+KING RICHARD III:
+My Lord of Norfolk, split me but a little word,
+That it may show me from the fire,
+To be a man, I'll warrant him for his deed.
+
+SICINIUS:
+We will be a bawd for ever.
+
+HERMIONE:
+Sir, at the last, she will be the shore
+That you shall still have written to the business for the third
+Which sorrow is already discharged of sea
+All the rest struck nor can as you should bear my stranger men?
+That love the ground with child by him.
+
+CORIOLANUS:
+The senseless brands with some found of man, and your worship for your son:
+Thou art a traitor: there is no more soul
+That thou comest in such a case to her.
+
+QUEEN ELIZABETH:
+O Romeo, how now, daughter, for a while!
+Where is the power of the world?
+
+DUKE OF AUMERLE:
+For all the child of night being proud,' quoth he,
+Alack, alas, 'tis but a man, and yours, and all this while
+That wilt not stay to live or death.
+
+EDWARD:
+Now, brother of Clarence, God forbid that I have to do it.
+
+LADY ANNE:
+All this is
+

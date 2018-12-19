@@ -12,9 +12,13 @@ import unidecode
 import time
 
 # Downloading Bacons work
-path_to_file = tf.keras.utils.get_file('shakespeare.txt', 'https://storage.googleapis.com/download.tensorflow.org/data/shakespeare.txt')
-
+path_to_file = tf.keras.utils.get_file('shakespeare_is_bacon.txt', 'https://storage.googleapis.com/download.tensorflow.org/data/shakespeare.txt') 
+# FRANCIS BACON: 'http://www.gutenberg.org/files/56463/56463-0.txt'
+# SHAKESPEAR: 'https://storage.googleapis.com/download.tensorflow.org/data/shakespeare.txt')
+# MARCUS AURELIOUS: http://www.gutenberg.org/cache/epub/15877/pg15877.txt
 # Reading Bacons work as "spear shaker" - Athena did this at ignorance.
+# PLATO: http://www.gutenberg.org/cache/epub/1497/pg1497.txt
+# HOMER LLIAD: http://www.gutenberg.org/cache/epub/6130/pg6130.txt
 text = unidecode.unidecode(open(path_to_file).read())
 # length of text is the number of characters in it
 print (len(text))
